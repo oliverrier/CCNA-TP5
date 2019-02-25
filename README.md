@@ -8,7 +8,7 @@ Compte-rendu réalisé par VERRIER Olivier Groupe B1A.
 
 * II. [Lancement et configuration du lab](#ii---lancement-et-configuration-du-lab)
 
-* III. [DHCP](##iii---dhcp)
+* III. [DHCP](#iii---dhcp)
 
 ## I - Préparation du lab
 
