@@ -4,11 +4,11 @@ Compte-rendu réalisé par VERRIER Olivier Groupe B1A.
 
 ## Sommaire
 
-* I. [Préparation du lab](#i-préparation-du-lab)
+* I. [Préparation du lab](#i---préparation-du-lab)
 
-* II. [Lancement et configuration du lab](#ii-lancement-et-configuration-du-lab)
+* II. [Lancement et configuration du lab](#ii---lancement-et-configuration-du-lab)
 
-* III. [DHCP](##iii-dhcp)
+* III. [DHCP](##iii---dhcp)
 
 ## I - Préparation du lab
 
