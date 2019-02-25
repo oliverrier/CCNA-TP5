@@ -43,10 +43,10 @@ On parle de `client1.tp5.b1`, `client2.tp5.b1` et `server1.tp5.b1` :
   * déja fait dans le patron
 * [X] Désactivation de la carte NAT
   * déja fait dans le patron
-* [ ] Définition des IPs statiques
-* [ ] La connexion SSH doit être fonctionnelle
+* [X] Définition des IPs statiques
+* [X] La connexion SSH doit être fonctionnelle
   * une fois fait, vous avez vos trois fenêtres SSH ouvertes, une dans chaque machine
-* [ ] Définition du nom de domaine
+* [X] Définition du nom de domaine
 
 **Checklist IP Routeurs**
 
@@ -56,6 +56,7 @@ On parle de `router1.tp5.b1` et `router2.tp5.b1` :
 * [X] Définition du nom de domaine
 
 `router2.tp5`:
+
     ```bash
     router1.tp5#show ip int br
     Interface                  IP-Address      OK? Method Status                Protocol
@@ -64,7 +65,6 @@ On parle de `router1.tp5.b1` et `router2.tp5.b1` :
     Ethernet0/2                unassigned      YES unset  administratively down down
     Ethernet0/3                unassigned      YES unset  administratively down down
     ```
-
 
 `router2.tp5`:
 
@@ -76,3 +76,62 @@ On parle de `router1.tp5.b1` et `router2.tp5.b1` :
     Ethernet0/2                unassigned      YES unset  administratively down down
     Ethernet0/3                unassigned      YES unset  administratively down down
     ```
+
+### Checklist routes 
+
+On parle de toutes les machines :
+* [X] `router1.tp5.b1`  
+  * directement connecté à `net1` et `net12`  
+  * [route à ajouter](../../cours/procedures-cisco.md#ajouter-une-route-statique) : `net2`  
+* [X] `router2.tp5.b1`
+  * directement connecté à `net2` et `net12`  
+  * [route à ajouter](../../cours/procedures-cisco.md#ajouter-une-route-statique) : `net1`  
+* [X] `server1.tp5.b1`  
+  * directement connecté à `net1`  
+  * [route à ajouter](../../cours/procedures.md#ajouter-une-route-statique) : `net2`
+  * [fichiers `hosts`](../../cours/procedures.md#editer-le-fichier-hosts) à remplir : `client1.tp5.b1`, `client2.tp5.b1`
+* [X] `client1.tp5.b1`
+  * directement connecté à `net2`  
+  * [route à ajouter](../../cours/procedures.md#ajouter-une-route-statique) : `net1`
+  * [fichiers `hosts`](../../cours/procedures.md#editer-le-fichier-hosts) à remplir : `server1.tp5.b1`, `client2.tp5.b1`
+* [X] `client2.tp5.b1`
+  * directement connecté à `net2`  
+  * [route à ajouter](../../cours/procedures.md#ajouter-une-route-statique) : `net1`
+  * [fichiers `hosts`](../../cours/procedures.md#editer-le-fichier-hosts) à remplir : `server1.tp5.b1`, `client1.tp5.b1`
+
+`client1` ping `client2`:
+
+```bash
+[iroh@client1 ~]$ ping client2
+PING client2 (10.5.2.11) 56(84) bytes of data.
+64 bytes from client2 (10.5.2.11): icmp_seq=1 ttl=64 time=1.45 ms
+64 bytes from client2 (10.5.2.11): icmp_seq=2 ttl=64 time=2.92 ms
+64 bytes from client2 (10.5.2.11): icmp_seq=3 ttl=64 time=2.61 ms
+64 bytes from client2 (10.5.2.11): icmp_seq=4 ttl=64 time=2.52 ms
+^C
+--- client2 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3013ms
+rtt min/avg/max/mdev = 1.457/2.381/2.928/0.555 ms
+
+```
+
+`server1` ping `client1`:
+
+```bash
+[iroh@server1 ~]$ ping client1
+PING client1 (10.5.2.10) 56(84) bytes of data.
+64 bytes from client1 (10.5.2.10): icmp_seq=3 ttl=62 time=41.1 ms
+64 bytes from client1 (10.5.2.10): icmp_seq=4 ttl=62 time=35.1 ms
+64 bytes from client1 (10.5.2.10): icmp_seq=5 ttl=62 time=36.7 ms
+64 bytes from client1 (10.5.2.10): icmp_seq=6 ttl=62 time=38.5 ms
+^C
+--- client1 ping statistics ---
+6 packets transmitted, 4 received, 33% packet loss, time 5055ms
+rtt min/avg/max/mdev = 35.139/37.897/41.111/2.223 ms
+
+```
+
+`server1` ping `client2`:
+
+```bash
+```
